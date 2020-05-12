@@ -5,23 +5,23 @@ INCLUDE  := -I./include
 TARGET   := ./hangman
 SRCDIR   := ./src
 OBJDIR   := ./src/obj
-SOURCES  := $(wildcard ./src/*.cpp)
-OBJECTS  := $(addprefix $(OBJDIR)/, $(notdir $(SOURCES:.cpp=.o)))
+SOURCES  := $(wildcard ./src/*.c)
+OBJECTS  := $(addprefix $(OBJDIR)/, $(notdir $(SOURCES:.c=.o)))
 
 $(TARGET): $(OBJECTS)
-	$(CXX) -o $@ $^ $(LDFLAGS)
+	$(CC) -o $@ $^ $(LDFLAGS)
 
-$(OBJDIR)/%.o: $(SRCDIR)/%.cpp
+$(OBJDIR)/%.o: $(SRCDIR)/%.c
 	@[ -d $(OBJDIR) ]
-	$(CXX) $(CXXFLAGS) $(INCLUDE) -o $@ -c $<
+	$(CC) $(CXXFLAGS) $(INCLUDE) -o $@ -c $<
 
 install: $(OBJECTS)
-	$(CXX) -O2 -o $(TARGET) $^ $(LDFLAGS)
+	$(CC) -O2 -o $(TARGET) $^ $(LDFLAGS)
 
 clean:
 	rm -f $(OBJECTS) $(TARGET)
 
-test: kinako-chan
+test: hangman
 	./hangman
 
 

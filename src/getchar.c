@@ -1,4 +1,4 @@
-#include<termio.h>
+#include<hangman.h>
 
 char getChar(void){
 	struct termio old_term, new_term;
