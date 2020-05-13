@@ -12,7 +12,7 @@ char getChar(void){
 	//new_term.c_lflag &= ~(ICANON);
 
 	ioctl(0, TCSETAW, &new_term);
-	c = getchar();
+	c=getchar();
 	ioctl(0, TCSETAW, &old_term);
 
 	return (c);

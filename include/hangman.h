@@ -3,5 +3,10 @@
 #include<string.h>
 #include<termio.h>
 
+typedef struct{
+	int len;
+	char *str;
+}Words;
+
 char getChar(void);
-void readfile(char **buffer);
+void readfile(Words *buffer);

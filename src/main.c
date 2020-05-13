@@ -3,9 +3,8 @@
 
 int main(void){
 	int i;
-	char **buffer;
+	Words *buffer;
 
 	readfile(buffer);
-
 	return 0;
 }

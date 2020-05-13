@@ -13,7 +13,7 @@ $(TARGET): $(OBJECTS)
 
 $(OBJDIR)/%.o: $(SRCDIR)/%.c
 	@[ -d $(OBJDIR) ]
-	$(CC) $(CXXFLAGS) $(INCLUDE) -o $@ -c $<
+	$(CC) $(CFLAGS) $(INCLUDE) -o $@ -c $<
 
 install: $(OBJECTS)
 	$(CC) -O2 -o $(TARGET) $^ $(LDFLAGS)
@@ -22,7 +22,7 @@ clean:
 	rm -f $(OBJECTS) $(TARGET)
 
 test: hangman
-	./hangman
+	$(TARGET)
 
 
 
