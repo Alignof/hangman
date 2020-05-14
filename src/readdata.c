@@ -1,14 +1,32 @@
 #include<hangman.h>
-#define BUF_SIZE 100
+#define BUF_SIZE 1000
+
+int count_strlen(char **buffer){
+	int len=0;
+	char *buf;
+	
+	buf=*buffer;
+	// count string len
+	while((*buf) != ' ' && *buf != NULL){
+		buf++;
+		len++;
+	}
+
+	return len;
+}
 
 void readfile(Words *words){
 	FILE *fp;
 	int line;
 	char c;
-	char buffer[BUF_SIZE];
+	char *buffer;
+	char *start;
 	Words *new_word;
 
-	if ((fp=fopen("./data/testdata.dat", "r")) == NULL) {
+	start=buffer;
+	buffer=(char *)malloc(BUF_SIZE*sizeof(char));
+
+	if ((fp=fopen("./data/toeic1500.dat", "r")) == NULL) {
 		fprintf(stderr,"File open error.\n");
 		exit(1);
 	}
@@ -23,15 +41,25 @@ void readfile(Words *words){
 
 	fseek(fp, 0L, SEEK_SET);
 	while(fgets(buffer,BUF_SIZE,fp)!=NULL){
-		new_word->len=strlen(buffer);
-		new_word->str=(char *)malloc(strlen(buffer)*sizeof(char));
+		// consume number
+		new_word->number=(int)strtol(buffer,&buffer,10);
+
+		// consume space
+		while((*buffer) == ' ') buffer++;
+
+		// get string len
+		new_word->len=count_strlen(&buffer);
+
+		// string copy
+		new_word->str=(char *)malloc((new_word->len)*sizeof(char));
 		strncpy(new_word->str,buffer,new_word->len);
 
 		new_word++;
+		buffer=start;
 	}
+	
+	for(int i=0;i<line;i++)
+		printf("len:%d\tstr:%s\n",words[i].len,words[i].str);
 
-	for(int i=0;i<line;i++){
-		printf("len:%3d\t word:%s",words[i].len,words[i].str);
-	}
 	fclose(fp);
 }
