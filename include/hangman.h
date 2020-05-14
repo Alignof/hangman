@@ -10,5 +10,5 @@ typedef struct{
 }Words;
 
 char getChar(void);
-void readfile(Words *buffer);
-int count_strlen(char **buffer);
+void readfile(Words *words,int argc,char **argv);
+int count_strlen(char *buffer);

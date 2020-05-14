@@ -1,21 +1,19 @@
 #include<hangman.h>
 #define BUF_SIZE 1000
 
-int count_strlen(char **buffer){
+int count_strlen(char *buffer){
 	int len=0;
-	char *buf;
 	
-	buf=*buffer;
 	// count string len
-	while((*buf) != ' ' && *buf != NULL){
-		buf++;
+	while((*buffer) != ' ' && *buffer != '\0'){
+		buffer++;
 		len++;
 	}
 
 	return len;
 }
 
-void readfile(Words *words){
+void readfile(Words *words,int argc,char **argv){
 	FILE *fp;
 	int line;
 	char c;
@@ -23,11 +21,22 @@ void readfile(Words *words){
 	char *start;
 	Words *new_word;
 
-	start=buffer;
 	buffer=(char *)malloc(BUF_SIZE*sizeof(char));
+	start=buffer;
 
-	if ((fp=fopen("./data/toeic1500.dat", "r")) == NULL) {
-		fprintf(stderr,"File open error.\n");
+	if(argc==1){
+		if ((fp=fopen("./data/toeic1500.dat", "r")) == NULL) {
+			fprintf(stderr,"File open error.\n");
+			exit(1);
+		}
+	}else if(argc==2){
+		if ((fp=fopen(argv[1],"r")) == NULL) {
+			fprintf(stderr,"File open error.\n");
+			exit(1);
+		}
+	}else{
+		fprintf(stderr,"argc:%d\n",argc);
+		fprintf(stderr,"invalid argument.\n");
 		exit(1);
 	}
 
@@ -48,7 +57,7 @@ void readfile(Words *words){
 		while((*buffer) == ' ') buffer++;
 
 		// get string len
-		new_word->len=count_strlen(&buffer);
+		new_word->len=count_strlen(buffer);
 
 		// string copy
 		new_word->str=(char *)malloc((new_word->len)*sizeof(char));
@@ -59,7 +68,7 @@ void readfile(Words *words){
 	}
 	
 	for(int i=0;i<line;i++)
-		printf("len:%d\tstr:%s\n",words[i].len,words[i].str);
+		printf("len:%2d\tstr:%s\n",words[i].len,words[i].str);
 
 	fclose(fp);
 }
