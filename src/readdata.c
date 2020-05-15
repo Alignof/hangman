@@ -59,11 +59,15 @@ void readfile(Words *words,int argc,char **argv){
 		// get string len
 		new_word->len=count_strlen(buffer);
 
-		// string copy
-		new_word->str=(char *)malloc((new_word->len)*sizeof(char));
-		strncpy(new_word->str,buffer,new_word->len);
+		// Ignore words less than 5 in length
+		if(!(new_word->len < 5)){
+			// string copy
+			new_word->str=(char *)malloc((new_word->len)*sizeof(char));
+			strncpy(new_word->str,buffer,new_word->len);
 
-		new_word++;
+			new_word++;
+		}
+
 		buffer=start;
 	}
 	

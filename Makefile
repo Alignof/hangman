@@ -1,5 +1,5 @@
 CC	 := gcc
-CFLAGS := -g -O0 -Wall
+CFLAGS := -g -O0
 
 INCLUDE  := -I./include
 TARGET   := ./hangman
