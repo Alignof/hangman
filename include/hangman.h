@@ -5,8 +5,10 @@
 
 typedef struct{
 	int len;
-	int number;
 	char *str;
+	bool is_wrong;
+	bool is_collect;
+	bool is_answered;
 }Words;
 
 char getChar(void);

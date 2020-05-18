@@ -51,7 +51,8 @@ void readfile(Words *words,int argc,char **argv){
 	fseek(fp, 0L, SEEK_SET);
 	while(fgets(buffer,BUF_SIZE,fp)!=NULL){
 		// consume number
-		new_word->number=(int)strtol(buffer,&buffer,10);
+		//new_word->number=(int)strtol(buffer,&buffer,10);
+		strtol(buffer,&buffer,10);
 
 		// consume space
 		while((*buffer) == ' ') buffer++;

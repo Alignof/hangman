@@ -24,6 +24,4 @@ clean:
 test: hangman
 	$(TARGET)
 
-
-
 .PHONY: test buildtest clean install
