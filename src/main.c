@@ -1,9 +1,10 @@
 #include "hangman.h"
-#define WORD_SIZE 1000
 
 int main(int argc,char *argv[]){
-	Words *buffer;
+	Words *words;
 
-	readfile(buffer,argc,argv);
+	readfile(&words,argc,argv);
+	playgame(words);
+
 	return 0;
 }

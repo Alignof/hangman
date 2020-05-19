@@ -13,7 +13,7 @@ int count_strlen(char *buffer){
 	return len;
 }
 
-void readfile(Words *words,int argc,char **argv){
+void readfile(Words **words,int argc,char **argv){
 	FILE *fp;
 	int line;
 	char c;
@@ -21,6 +21,7 @@ void readfile(Words *words,int argc,char **argv){
 	char *start;
 	Words *new_word;
 
+	Wordsize=0;
 	buffer=(char *)malloc(BUF_SIZE*sizeof(char));
 	start=buffer;
 
@@ -45,8 +46,8 @@ void readfile(Words *words,int argc,char **argv){
 		if(c=='\n') line++;
 
 	printf("line:%2d\n",line);
-	words=(Words *)malloc(line*sizeof(Words));
-	new_word=words;
+	*words=(Words *)malloc(line*sizeof(Words));
+	new_word=*words;
 
 	fseek(fp, 0L, SEEK_SET);
 	while(fgets(buffer,BUF_SIZE,fp)!=NULL){
@@ -67,13 +68,16 @@ void readfile(Words *words,int argc,char **argv){
 			strncpy(new_word->str,buffer,new_word->len);
 
 			new_word++;
+			Wordsize++;
 		}
 
 		buffer=start;
 	}
-	
+
+/*	
 	for(int i=0;i<line;i++)
 		printf("len:%2d\tstr:%s\n",words[i].len,words[i].str);
+*/
 
 	fclose(fp);
 }
