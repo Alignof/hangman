@@ -41,6 +41,6 @@ void playgame(Words *words){
 
 		printf("continue?[y/n]>");
 		if(getchar()=='n') game_continue=false;
-		getchar();
+		getchar();//dummy input
 	}
 }
