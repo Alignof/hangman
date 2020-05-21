@@ -50,8 +50,11 @@ void playgame(Words *words){
 
 			if(i!=TRY){
 				printf("input char>");
-				input[i]=getChar();
-				used[input[i]]=true;
+
+				do{
+					input[i]=getChar();
+				}while(!('a'<=input[i] || input[i]<='z') || used[input[i]-'a']);
+				used[input[i]-'a']=true;
 			}
 		}
 
