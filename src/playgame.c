@@ -4,17 +4,18 @@
 char *hint(Words ans,char *input){
 	int i,j;
 	char *ret;
-	ret=(char *)malloc(ans.len*sizeof(char));
+	ret=(char *)malloc((ans.len+1)*sizeof(char));
 
 	for(i=0;i<ans.len;i++){
-		for(;*input!=NULL;input++){
-			if(ans.str[i]==*input){
-				ret[i]=*input;
-			}else{
-				ret[i]='-';
+		ret[i]='-';
+		for(j=0;input[j]!=NULL;j++){
+			if(ans.str[i]==input[j]){
+				ret[i]=input[j];
+				break;
 			}
 		}
 	}
+	ret[ans.len]='\0';
 	return ret;
 }
 
@@ -22,6 +23,7 @@ void playgame(Words *words){
 	int i;
 	Words word;
 	bool game_continue=true;
+	bool used['z'-'a']={0};
 	char input[TRY]={0};
 
 	srand((unsigned int)time(NULL));
@@ -29,18 +31,30 @@ void playgame(Words *words){
 	while(game_continue){
 		word=words[rand()%Wordsize];
 		if(word.is_collect) continue;
-/*
-		for(i=0;i<TRY;i++){
-			printf("input char>");
-			input[i]=getChar();
-			printf("word:%s",hint(word,input));
-			printf("used:%s",input);
-			printf("remain:%d",TRY-i);
-		}
-*/
 
-		printf("continue?[y/n]>");
-		if(getchar()=='n') game_continue=false;
-		getchar();//dummy input
+		for(i=0;i<TRY+1;i++){
+			printf("\033[1;1H");
+			printf("\033[2J");
+			//printf("\033c");
+
+			printf("word:%s\n",word.str);
+			printf("hint:%s\n",hint(word,input));
+			printf("used:%s\n",input);
+			printf("remain:%d\n",TRY-i);
+
+			if(i!=TRY){
+				printf("input char>");
+				input[i]=getChar();
+				used[input[i]]=true;
+			}
+		}
+
+
+		printf("\ncontinue?[y/n]>");
+		if(getChar()=='n') game_continue=false;
+		//getchar();//dummy input
+
+		memset(input,0,sizeof(input));
+		memset(used,0,sizeof(used));
 	}
 }
