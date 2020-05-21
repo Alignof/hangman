@@ -9,7 +9,7 @@ typedef struct{
 	int len;
 	char *str;
 	bool is_wrong;
-	bool is_collect;
+	bool is_correct;
 	bool is_answered;
 }Words;
 
@@ -18,4 +18,4 @@ int count_strlen(char *buffer);
 void readfile(Words **words,int argc,char **argv);
 void playgame(Words *words);
 char getChar(void);
-char *hint(Words ans,char *input);
+char *hint(Words *ans,char *input);
