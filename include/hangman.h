@@ -18,4 +18,4 @@ int count_strlen(char *buffer);
 void readfile(Words **words,int argc,char **argv);
 void playgame(Words *words);
 char getChar(void);
-char *hint(Words *ans,char *input);
+bool hint(Words *word,bool *used,char input);

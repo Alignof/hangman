@@ -1,34 +1,68 @@
 #include "hangman.h"
 #define TRY 7
 
-char *hint(Words *ans,char *input){
-	int i,j;
+bool hint(Words *word,bool *used,char input){
+	int i;
+	bool hit=false;
 	int counter=0;
-	char *ret;
-	ret=(char *)malloc((ans->len+1)*sizeof(char));
+	char output;
 
-	for(i=0;i<ans->len;i++){
-		ret[i]='-';
-		for(j=0;input[j]!=NULL;j++){
-			if(ans->str[i]==input[j]){
-				ret[i]=input[j];
-				counter++;
-				break;
-			}
+	printf("hint:");
+	for(i=0;i<word->len;i++){
+		output='-';
+		if(used[word->str[i]-'a']){
+			output=word->str[i];
+			if(word->str[i]==input) hit=true;
+			counter++;
+		}
+		printf("%c",output);
+	}
+	printf("\n");
+
+	if(counter==word->len) word->is_correct=true;
+	return hit;
+}
+
+void display_used(char *used){
+	char c;
+
+	printf("================================\nused:");
+	for(c='a';c<='z';c++){
+		if(used[c-'a']){
+			printf("\033[41m");
+			printf("%c",c);
+			printf("\033[49m");
+		}else{
+			printf("%c",c);
 		}
 	}
+	printf("\n================================\n");
 
-	if(counter==ans->len) ans->is_correct=true;
-	ret[ans->len]='\0';
-	return ret;
+}
+
+int display_data(Words *word,bool *used,char input,int *remain){
+	int hit;
+
+	printf("\033[1;1H");
+	printf("\033[2J");
+	printf("word:%s\n",word->str);
+	hit=hint(word,used,input);
+	display_used(used);
+
+	if(hit==0 && input!=NULL) (*remain)--;
+	printf("remain:%d\n",*remain);
+
+	return hit;
 }
 
 void playgame(Words *words){
 	int i;
+	int remain;
+	bool hit;
+	char input=0;
 	Words word;
 	bool game_continue=true;
-	bool used['z'-'a']={0};
-	char input[TRY]={0};
+	bool used['z'-'a'+1]={0};
 
 	srand((unsigned int)time(NULL));
 
@@ -36,26 +70,21 @@ void playgame(Words *words){
 		word=words[rand()%Wordsize];
 		if(word.is_correct) continue;
 
-		for(i=0;i<TRY+1;i++){
-			printf("\033[1;1H");
-			printf("\033[2J");
-			//printf("\033c");
+		remain=TRY;
+		input=NULL;
 
-			printf("word:%s\n",word.str);
-			printf("hint:%s\n",hint(&word,input));
-			printf("used:%s\n",input);
-			printf("remain:%d\n",TRY-i);
+		// initial
+		display_data(&word,used,input,&remain);
+		while(remain>0){
+			printf("input char>");
+			do{
+				input=getChar();
+			}while(!('a'<=input && input<='z') || used[input-'a']);
+
+			used[input-'a']=true;
+			display_data(&word,used,input,&remain);
 
 			if(word.is_correct) break;
-
-			if(i!=TRY){
-				printf("input char>");
-
-				do{
-					input[i]=getChar();
-				}while(!('a'<=input[i] || input[i]<='z') || used[input[i]-'a']);
-				used[input[i]-'a']=true;
-			}
 		}
 
 		if(word.is_correct){
@@ -66,11 +95,9 @@ void playgame(Words *words){
 		}
 		word.is_answered=true;
 
-
 		printf("\ncontinue?[y/n]>");
 		if(getChar()=='n') game_continue=false;
 
-		memset(input,0,sizeof(input));
 		memset(used,0,sizeof(used));
 	}
 }
