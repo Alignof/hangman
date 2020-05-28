@@ -68,12 +68,23 @@ int display_data(Words *word,bool *used,char input,int *remain){
 
 void display_result(Words *words){
 	int i;
+	int correct=0;
+	int wrong=0;
 
 	// display wrong word
 	printf("\n------wrong words------\n");
 	for(i=0;i<Wordsize;i++){
-		if(words[i].is_wrong)
+		if(words[i].is_wrong){
 			printf("%s\n",words[i].str);
+			wrong++;
+		}
+
+		if(words[i].is_correct)
+			correct++;
 	}
 	printf("-----------------------\n");
+	printf("wrong:\t%d\n",wrong);
+	printf("correct:\t%d\n",correct);
+	printf("correct answer rate:\t%.2f%\n",(double)correct/(double)(wrong+correct)*100);
+
 }
