@@ -1,5 +1,27 @@
 #include "hangman.h"
 
+bool hint(Words *word,bool *used,char input){
+	int i;
+	bool hit=false;
+	int counter=0;
+	char output;
+
+	printf("hint:");
+	for(i=0;i<word->len;i++){
+		output='-';
+		if(used[word->str[i]-'a']){
+			output=word->str[i];
+			if(word->str[i]==input) hit=true;
+			counter++;
+		}
+		printf("%c",output);
+	}
+	printf("\n");
+
+	if(counter==word->len) word->is_correct=true;
+	return hit;
+}
+
 void display_used(char *used){
 	char c;
 
@@ -20,7 +42,7 @@ void display_used(char *used){
 void display_remain(int remain){
 	int i;
 
-	printf("\033[43m");
+	printf("\033[42m");
 	for(i=0;i<remain;i++){
 		printf("  ");
 	}
@@ -39,7 +61,7 @@ int display_data(Words *word,bool *used,char input,int *remain){
 
 	if(hit==0 && input!=NULL) (*remain)--;
 	printf("remain[%d]:",*remain);
-	//display_remain(*remain);
+	display_remain(*remain);
 
 	return hit;
 }

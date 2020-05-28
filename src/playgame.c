@@ -1,28 +1,6 @@
 #include "hangman.h"
 #define TRY 7
 
-bool hint(Words *word,bool *used,char input){
-	int i;
-	bool hit=false;
-	int counter=0;
-	char output;
-
-	printf("hint:");
-	for(i=0;i<word->len;i++){
-		output='-';
-		if(used[word->str[i]-'a']){
-			output=word->str[i];
-			if(word->str[i]==input) hit=true;
-			counter++;
-		}
-		printf("%c",output);
-	}
-	printf("\n");
-
-	if(counter==word->len) word->is_correct=true;
-	return hit;
-}
-
 
 void playgame(Words *words){
 	int i;
@@ -43,7 +21,7 @@ void playgame(Words *words){
 		input=NULL;
 
 		// initial
-		display_data(&word,used,input,&remain);
+		display_data(word,used,input,&remain);
 		while(remain>0){
 			printf("input char>");
 			do{
