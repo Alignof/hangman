@@ -19,6 +19,6 @@ void readfile(Words **words,int argc,char **argv);
 void playgame(Words *words);
 char getChar(void);
 bool hint(Words *word,bool *used,char input);
-void display_used(char *used);
+void display_used(bool *used);
 void display_result(Words *word);
 int display_data(Words *word,bool *used,char input,int *remain);

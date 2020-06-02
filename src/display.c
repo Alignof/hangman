@@ -22,7 +22,7 @@ bool hint(Words *word,bool *used,char input){
 	return hit;
 }
 
-void display_used(char *used){
+void display_used(bool *used){
 	char c;
 
 	printf("================================\nused:");
@@ -59,7 +59,7 @@ int display_data(Words *word,bool *used,char input,int *remain){
 	hit=hint(word,used,input);
 	display_used(used);
 
-	if(hit==0 && input!=NULL) (*remain)--;
+	if(hit==0 && input!=0) (*remain)--;
 	printf("remain[%d]:",*remain);
 	display_remain(*remain);
 
