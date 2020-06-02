@@ -53,8 +53,9 @@ void display_remain(int remain){
 int display_data(Words *word,bool *used,char input,int *remain){
 	int hit;
 
-	printf("\033[1;1H");
-	printf("\033[2J");
+	printf("\033c");
+	//printf("\033[1;1H");
+	//printf("\033[2J");
 	printf("word:%s\n",word->str);
 	hit=hint(word,used,input);
 	display_used(used);
@@ -83,8 +84,8 @@ void display_result(Words *words){
 			correct++;
 	}
 	printf("-----------------------\n");
-	printf("wrong:\t%d\n",wrong);
-	printf("correct:\t%d\n",correct);
-	printf("correct answer rate:\t%.2f%\n",(double)correct/(double)(wrong+correct)*100);
+	printf("wrong:%2d\n",wrong);
+	printf("correct:%2d\n",correct);
+	printf("correct answer rate:%.2f%\n",(double)correct/(double)(wrong+correct)*100);
 
 }
