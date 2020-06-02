@@ -1,12 +1,17 @@
 # hangman
- 2020年度プログラミング演習Ⅲの課題
+2020年度プログラミング演習Ⅲの課題
 
-## install
+## Install
 ```zsh
 $ make install
 ```
 
-## file organization
+testing
+```zsh
+$ make test
+```
+
+## File organization
 ```
 .
 ├── LICENSE
@@ -19,9 +24,11 @@ $ make install
 ├── include
 │   └── hangman.h
 └── src
+    ├── display.c
     ├── getchar.c
     ├── main.c
     ├── obj
+    │   ├── display.o
     │   ├── getchar.o
     │   ├── main.o
     │   ├── playgame.o
