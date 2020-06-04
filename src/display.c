@@ -1,4 +1,4 @@
-#include "hangman.h"
+#include "hangman.h" 
 
 bool hint(Words *word,bool *used,char input){
 	int i;
@@ -36,7 +36,6 @@ void display_used(bool *used){
 		}
 	}
 	printf("\n================================\n");
-
 }
 
 void display_remain(int remain){

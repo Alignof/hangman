@@ -2,6 +2,8 @@
 2020年度プログラミング演習Ⅲの課題
 
 ## Install
+
+install 
 ```zsh
 $ make install
 ```
