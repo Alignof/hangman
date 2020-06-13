@@ -74,10 +74,5 @@ void readfile(Words **words,int argc,char **argv){
 		buffer=start;
 	}
 
-/*	
-	for(int i=0;i<line;i++)
-		printf("len:%2d\tstr:%s\n",words[i].len,words[i].str);
-*/
-
 	fclose(fp);
 }
