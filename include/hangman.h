@@ -3,7 +3,7 @@
 #include<stdbool.h>
 #include<time.h>
 #include<string.h>
-#include<termio.h>
+#include<termios.h>
 
 typedef struct{
 	int len;

@@ -1,4 +1,5 @@
 # hangman
+[![Build Status](https://travis-ci.org/Takana-Norimasa/hangman.svg?branch=master)](https://travis-ci.org/Takana-Norimasa/hangman)  
 2020年度プログラミング演習Ⅲの課題
 
 ## Install

@@ -56,7 +56,6 @@ int display_data(Words *word,bool *used,char input,int *remain){
 	//printf("\033[1;1H");
 	//printf("\033[2J");
 	
-	//printf("word:%s\n",word->str);
 	hit=hint(word,used,input);
 	display_used(used);
 
