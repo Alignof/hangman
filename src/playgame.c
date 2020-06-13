@@ -18,7 +18,7 @@ void playgame(Words *words){
 		if(word->is_correct) continue;
 
 		remain=TRY;
-		input=NULL;
+		input=0;
 
 		// initial
 		display_data(word,used,input,&remain);

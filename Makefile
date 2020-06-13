@@ -21,7 +21,7 @@ install: $(OBJECTS)
 clean:
 	rm -f $(OBJECTS) $(TARGET)
 
-test: hangman
+test: $(TARGET)
 	$(TARGET)
 
 .PHONY: test buildtest clean install
