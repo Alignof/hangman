@@ -1,7 +1,6 @@
 #include "hangman.h"
 #define TRY 7
 
-
 void playgame(Words *words){
 	int i;
 	int remain;

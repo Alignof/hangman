@@ -86,5 +86,4 @@ void display_result(Words *words){
 	printf("wrong:%2d\n",wrong);
 	printf("correct:%2d\n",correct);
 	printf("correct answer rate:%.2f%\n",(double)correct/(double)(wrong+correct)*100);
-
 }
